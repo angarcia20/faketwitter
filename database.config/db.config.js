@@ -3,8 +3,8 @@
  */
 const dbconfig = {
         HOST: "localhost",
-        USER: "testuser",
-        PASSWORD: "testpwd",
+        USER: "root",
+        PASSWORD: "santafe98121106540",
         DB: "faketwitter",
         dialect: "mysql",
         pool: {
