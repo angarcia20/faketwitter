@@ -10,8 +10,15 @@ const dbManager = require ('../database.config/database.manager');
             return;
         }
         const tweet = {
-            tweet: req.body.tweet,
+            tweet: req.body.tweet
         }
+
+
+    }
+
+    function leerTweet_usuario(req,res){
+
+        
 
 
     }
