@@ -90,10 +90,19 @@ async function findOneUser (req, res){
  * Update user
  */
 async function updateUser (req, res){
-                /**
-                 * TASK:
-                 * IMPLEMENT THE FUNCTION______________________- 
-                 */
+    if (!req.body) {
+        res.status(400).send({
+          message: "Request body is empty!!!!"
+        });
+        return;
+    }
+    dbManager.User.update({
+        username: req.body.username
+    },{$set : {
+        username : req.body.username,
+        creation_date: req.body.creation_date
+    }});
+    res.send("USER UPDATE");
 }
 
 /**
@@ -102,11 +111,25 @@ async function updateUser (req, res){
  * @param {*} res 
  */
 function deleteUserByUsername (req, res){ 
-                /**
-                 * TASK:
-                 * IMPLEMENT THE FUNCTION______________________- 
-                 */
+    try {
+        const { nameUser } = req.params;
 
+        //Execute query
+       dbManager.User.deleteOne({
+            where: {
+                nameUser: nameUser
+            }
+        });
+        res.send("USER DELETE");
+
+    }catch (e) {
+        // Print error on console
+        console.log(e);
+        // Send error message as a response 
+        res.status(500).send({
+            message: "Some error occurred"
+        });
+    }
 }
 
 /**
@@ -115,10 +138,22 @@ function deleteUserByUsername (req, res){
  * @param {*} res 
  */
 function deleteAllUsers (req, res){
-                /**
-                 * TASK:
-                 * IMPLEMENT THE FUNCTION______________________- 
-                 */
+    try {
+        //Execute query
+        const users = await dbManager.User.deleteMany({});
+        
+        //Send response
+        res.send("ALL USERS DELETED");
+
+    } catch (e) {
+        // Print error on console
+        console.log(e);
+        // Send error message as a response 
+        res.status(500).send({
+            message: "Some error occurred"
+        });
+    }
+
 }
 
 /**
