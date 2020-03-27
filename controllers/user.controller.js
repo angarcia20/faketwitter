@@ -236,7 +236,6 @@ async function login(req, res){
             message: "Some error occurred"
         });
     }
-
 }
 
 
