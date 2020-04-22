@@ -87,6 +87,29 @@ async function findOneUser (req, res){
     }
 }
 
+async function findOneUserByUsername (req, res){
+    try {
+        const { username } = req.params;
+
+        //Execute query
+        const user = await dbManager.User.findOne({
+            where: {
+                username: username
+            }
+        });
+        //Send response
+        res.json(user);
+
+    } catch (e) {
+        // Print error on console
+        console.log(e);
+        // Send error message as a response 
+        res.status(500).send({
+            message: "Some error occurred"
+        });
+    }
+}
+
 /**
  * Update user
  */
@@ -218,13 +241,12 @@ async function login(req, res){
         });
 
         if(user.password == password){
-            res.send("USUARIO INICIO SESION");
-
+            res.json({
+                data: user
+        });
         }else{
-            res.send("USUARIO NO INICIO SESION");
+            res.json(null);
         }
-
-
         //Send response
         res.json(user);
 
@@ -247,3 +269,4 @@ exports.updateUser = updateUser;
 exports.deleteUserByUsername = deleteUserByUsername;
 exports.deleteAllUsers = deleteAllUsers;
 exports.findAllUsersByCreatedDate = findAllUsersByCreatedDate;
+exports.findOneUserByUsername = findOneUserByUsername;

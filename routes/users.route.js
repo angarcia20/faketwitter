@@ -28,6 +28,10 @@ router.delete ('/',userController.deleteAllUsers);
 
 router.post ('/login',userController.login);
 
+router.get('/username/:username', userController.findOneUserByUsername);
+
+
+
 
 /**
  * TASK:
